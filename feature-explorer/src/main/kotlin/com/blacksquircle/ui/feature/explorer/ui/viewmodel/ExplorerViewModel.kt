@@ -81,6 +81,9 @@ class ExplorerViewModel @Inject constructor(
     var dropdownPosition: Int = -1
         private set
 
+    var rootFileModel : FileModel? = null
+        private set
+
     private val breadcrumbs = mutableListOf<FileModel>()
     private val selection = mutableListOf<FileModel>()
     private val buffer = mutableListOf<FileModel>()
@@ -121,7 +124,13 @@ class ExplorerViewModel @Inject constructor(
             is ExplorerIntent.SortByName -> sortByName()
             is ExplorerIntent.SortBySize -> sortBySize()
             is ExplorerIntent.SortByDate -> sortByDate()
+
+            is ExplorerIntent.SetWorkspaceRoot -> setRoot(event)
         }
+    }
+
+    private fun setRoot(event: ExplorerIntent.SetWorkspaceRoot) {
+        rootFileModel = event.root
     }
 
     fun handleOnBackPressed(): Boolean {
@@ -153,7 +162,9 @@ class ExplorerViewModel @Inject constructor(
                 if (!refreshState.value && query.isEmpty()) { // SwipeRefresh
                     _directoryViewState.value = DirectoryViewState.Loading
                 }
-                val fileTree = explorerRepository.listFiles(event.fileModel)
+
+                val fileModel = event.fileModel ?: rootFileModel
+                val fileTree = explorerRepository.listFiles(fileModel)
                 _explorerViewState.value = ExplorerViewState.ActionBar(
                     breadcrumbs = breadcrumbs.appendList(fileTree.parent),
                     selection = selection,

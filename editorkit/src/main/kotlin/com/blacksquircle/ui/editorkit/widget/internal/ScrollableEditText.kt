@@ -57,7 +57,9 @@ abstract class ScrollableEditText @JvmOverloads constructor(
     override fun onTouchEvent(event: MotionEvent): Boolean {
         initVelocityTrackerIfNotExists()
         when (event.action) {
-            MotionEvent.ACTION_DOWN -> abortFling()
+            MotionEvent.ACTION_DOWN -> {
+                abortFling()
+            }
             MotionEvent.ACTION_UP -> {
                 velocityTracker?.computeCurrentVelocity(1000, maximumVelocity)
                 val velocityX = if (isHorizontallyScrollableCompat())

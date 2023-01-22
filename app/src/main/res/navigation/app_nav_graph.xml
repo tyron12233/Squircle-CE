@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2022 Squircle CE contributors.
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -19,15 +18,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/app_nav_graph"
-    app:startDestination="@id/twoPaneFragment">
+    app:startDestination="@id/workspaceFragment">
+
+    <fragment
+        android:id="@+id/workspaceFragment"
+        android:name="com.tyron.workspace.ui.fragment.WorkspaceSelectorFragment"
+        tools:layout="@layout/fragment_workspace_selector" />
 
     <fragment
         android:id="@+id/twoPaneFragment"
         android:name="com.blacksquircle.ui.application.fragment.TwoPaneFragment"
-        tools:layout="@layout/fragment_two_pane" >
+        tools:layout="@layout/fragment_two_pane">
         <action
             android:id="@+id/to_confirmExitDialog"
             app:destination="@id/confirmExitDialog" />
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="blacksquircle://editor?workspaceRoot={workspaceRoot}" />
+        <argument android:name="workspaceRoot"
+            android:defaultValue="@null"
+            app:nullable="true"
+            app:argType="string"
+            />
     </fragment>
 
     <dialog
@@ -47,10 +59,10 @@
 
     <include
         android:id="@+id/fonts_graph"
-        app:graph="@navigation/fonts_graph"/>
+        app:graph="@navigation/fonts_graph" />
 
     <include
         android:id="@+id/themes_graph"
-        app:graph="@navigation/themes_graph"/>
+        app:graph="@navigation/themes_graph" />
 
 </navigation>

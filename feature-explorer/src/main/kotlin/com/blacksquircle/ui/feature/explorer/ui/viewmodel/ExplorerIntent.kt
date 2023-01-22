@@ -20,6 +20,8 @@ import com.blacksquircle.ui.filesystem.base.model.FileModel
 
 sealed class ExplorerIntent {
 
+    data class SetWorkspaceRoot(val root: FileModel) : ExplorerIntent()
+
     data class SearchFiles(val query: String) : ExplorerIntent()
     data class SelectFiles(val selection: List<FileModel>) : ExplorerIntent()
     data class SelectTab(val position: Int) : ExplorerIntent()

@@ -30,10 +30,10 @@
         android:icon="@mipmap/ic_launcher"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
-        android:theme="@style/AppTheme"
+        android:theme="@style/AppTheme.MD3"
         android:name="com.blacksquircle.ui.SquircleApp"
         android:requestLegacyExternalStorage="true"
-        tools:replace="android:supportsRtl">
+        tools:replace="android:supportsRtl,android:theme">
 
         <activity
             android:name="com.blacksquircle.ui.application.activity.MainActivity"

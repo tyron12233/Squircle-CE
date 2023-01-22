@@ -20,11 +20,13 @@ import com.blacksquircle.ui.core.data.storage.database.dao.document.DocumentDao
 import com.blacksquircle.ui.core.data.storage.database.dao.font.FontDao
 import com.blacksquircle.ui.core.data.storage.database.dao.server.ServerDao
 import com.blacksquircle.ui.core.data.storage.database.dao.theme.ThemeDao
+import com.blacksquircle.ui.core.data.storage.database.dao.workspace.WorkspaceDao
 
 interface AppDatabase {
     fun documentDao(): DocumentDao
     fun serverDao(): ServerDao
     fun fontDao(): FontDao
     fun themeDao(): ThemeDao
+    fun workspaceDao(): WorkspaceDao
     fun shutdown()
 }

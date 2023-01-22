@@ -16,9 +16,16 @@
 
 package com.blacksquircle.ui.core.ui.navigation
 
+import java.io.File
+
 abstract class Screen<T>(val route: T) {
+
     object Settings : Screen<String>("blacksquircle://settings")
     object AddServer : Screen<String>("blacksquircle://settings/cloud/add")
     object Fonts : Screen<String>("blacksquircle://fonts")
     object Themes : Screen<String>("blacksquircle://themes")
+
+    class Editor(root: File) : Screen<String>(
+        route = "blacksquircle://editor?workspaceRoot=${root.absolutePath}"
+    )
 }

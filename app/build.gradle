@@ -19,6 +19,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
+    id 'androidx.navigation.safeargs.kotlin'
 }
 
 android {
@@ -106,6 +107,7 @@ dependencies {
 
     // Features
     implementation project(':feature-core')
+    implementation project(':feature-workspace')
     implementation project(':feature-editor')
     implementation project(':feature-explorer')
     implementation project(':feature-fonts')

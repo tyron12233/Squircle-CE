@@ -28,6 +28,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.blacksquircle.ui.R
 import com.blacksquircle.ui.application.navigation.AppScreen
 import com.blacksquircle.ui.application.viewmodel.MainViewModel
@@ -44,8 +45,12 @@ import com.blacksquircle.ui.feature.editor.ui.fragment.EditorFragment
 import com.blacksquircle.ui.feature.editor.ui.viewmodel.EditorViewModel
 import com.blacksquircle.ui.feature.explorer.data.utils.openFileWith
 import com.blacksquircle.ui.feature.explorer.ui.fragment.ExplorerFragment
+import com.blacksquircle.ui.feature.explorer.ui.viewmodel.ExplorerIntent
 import com.blacksquircle.ui.feature.explorer.ui.viewmodel.ExplorerViewEvent
 import com.blacksquircle.ui.feature.explorer.ui.viewmodel.ExplorerViewModel
+import com.blacksquircle.ui.feature.settings.ui.dialog.ServerDialogArgs
+import com.blacksquircle.ui.filesystem.base.model.FileModel
+import com.blacksquircle.ui.filesystem.local.LocalFilesystem
 import com.blacksquircle.ui.utils.extensions.multiplyDraggingEdgeSizeBy
 import com.blacksquircle.ui.utils.extensions.resolveFilePath
 import dagger.hilt.android.AndroidEntryPoint
@@ -59,13 +64,26 @@ class TwoPaneFragment : Fragment(R.layout.fragment_two_pane), DrawerHandler {
     private val mainViewModel by activityViewModels<MainViewModel>()
     private val explorerViewModel by activityViewModels<ExplorerViewModel>()
     private val editorViewModel by activityViewModels<EditorViewModel>()
+
     private val navController by lazy { findNavController() }
+    private val args by navArgs<TwoPaneFragmentArgs>()
+
     private val binding by viewBinding(FragmentTwoPaneBinding::bind)
     private val drawerLayout: DrawerLayout?
         get() = binding.drawerLayout as? DrawerLayout
 
     private lateinit var editorBackPressedHandler: BackPressedHandler
     private lateinit var explorerBackPressedHandler: BackPressedHandler
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        explorerViewModel.obtainEvent(
+            ExplorerIntent.SetWorkspaceRoot(
+                LocalFilesystem.toFileModel(File(args.workspaceRoot!!))
+            )
+        )
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

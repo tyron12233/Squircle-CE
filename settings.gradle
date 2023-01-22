@@ -61,3 +61,6 @@ include ':languages:language-base',
         ':languages:language-visualbasic',
         ':languages:language-xml',
         ':languages:language-yaml'
+include ':feature-workspace'
+include ':feature-project-model'
+include ':codeassist-tooling-api'

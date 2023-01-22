@@ -22,19 +22,22 @@ import com.blacksquircle.ui.core.data.storage.database.dao.document.DocumentDao
 import com.blacksquircle.ui.core.data.storage.database.dao.font.FontDao
 import com.blacksquircle.ui.core.data.storage.database.dao.server.ServerDao
 import com.blacksquircle.ui.core.data.storage.database.dao.theme.ThemeDao
+import com.blacksquircle.ui.core.data.storage.database.dao.workspace.WorkspaceDao
 import com.blacksquircle.ui.core.data.storage.database.entity.document.DocumentEntity
 import com.blacksquircle.ui.core.data.storage.database.entity.font.FontEntity
 import com.blacksquircle.ui.core.data.storage.database.entity.server.ServerEntity
 import com.blacksquircle.ui.core.data.storage.database.entity.theme.ThemeEntity
+import com.blacksquircle.ui.core.data.storage.database.entity.workspace.WorkspaceEntity
 
 @Database(
     entities = [
         DocumentEntity::class,
         ServerEntity::class,
         FontEntity::class,
-        ThemeEntity::class
+        ThemeEntity::class,
+        WorkspaceEntity::class
     ],
-    version = 2,
+    version = 3,
 )
 abstract class AppDatabaseImpl : RoomDatabase(), AppDatabase {
 
@@ -46,6 +49,7 @@ abstract class AppDatabaseImpl : RoomDatabase(), AppDatabase {
     abstract override fun serverDao(): ServerDao
     abstract override fun fontDao(): FontDao
     abstract override fun themeDao(): ThemeDao
+    abstract override fun workspaceDao(): WorkspaceDao
 
     override fun shutdown() {
         clearAllTables()
